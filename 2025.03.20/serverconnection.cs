@@ -92,5 +92,70 @@ namespace _2025._03._20
             }
             return all;
         }
+        public async Task<List<string>> Names()
+        {
+            List<string> allnames = new List<string>();
+            string url = serverurl + "/allnames";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                string result = await response.Content.ReadAsStringAsync();
+                allnames = JsonConvert.DeserializeObject<List<jsondata2cs>>(result).Select(item => item.name).ToList();
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+            }
+
+            return allnames;
+        }
+        public async Task<List<int>> Ages()
+        {
+            List<int> allages = new List<int>();
+            string url = serverurl + "/allages";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                string result = await response.Content.ReadAsStringAsync();
+                allages = JsonConvert.DeserializeObject<List<jsondata2cs>>(result).Select(item => item.age).ToList();
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+            }
+
+            return allages;
+        }
+        public async Task<bool> Createpr(string name, int age)
+        {
+            string url = serverurl + "/createperson";
+
+            try
+            {
+                var jsonInfo = new
+                {
+                    createname = name,
+                    createage = age
+
+                };
+                string jsonStringified = JsonConvert.SerializeObject(jsonInfo);
+                HttpContent sendThis = new StringContent(jsonStringified, Encoding.UTF8, "Application/json");
+                HttpResponseMessage response = await client.PostAsync(url, sendThis);
+                response.EnsureSuccessStatusCode();
+                string result = await response.Content.ReadAsStringAsync();
+                jsondata2cs data = JsonConvert.DeserializeObject<jsondata2cs>(result);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+            }
+            return false;
+        }
     }
 }

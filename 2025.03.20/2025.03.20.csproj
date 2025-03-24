@@ -61,6 +61,7 @@
     <Compile Include="afterlogin.xaml.cs">
       <DependentUpon>afterlogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="jsondata2cs.cs" />
     <Compile Include="serverconnection.cs" />
     <Compile Include="Token.cs" />
     <Page Include="afterlogin.xaml">

@@ -25,6 +25,8 @@ namespace _2025._03._20
             InitializeComponent();
             this.connection = connection;
             Start();
+            Start2();
+            Start3();
         }
         async void Start()
         {
@@ -33,6 +35,30 @@ namespace _2025._03._20
             foreach (string  item in all)
             {
                 lista.Children.Add(new TextBlock() {Text = item});
+            }
+        }
+        async void Regnew(object s, EventArgs e)
+        {
+            bool valami = await connection.Reg(nameinputt.Text, ageinputt.Text);
+            if (valami)
+            {
+                MessageBox.Show("Registered in");
+            }
+        }
+        async void Start2()
+        {
+            List<string> allnames = await connection.Names();
+            foreach (string item in allnames)
+            {
+                namelista.Children.Add(new TextBlock() { Text = item });
+            }
+        }
+        async void Start3()
+        {
+            List<int> allages = await connection.Ages();
+            foreach (int item in allages)
+            {
+                agelista.Children.Add(new TextBlock() { Text = item.ToString() });
             }
         }
     }
