@@ -37,7 +37,7 @@ namespace _2025._03._20
             if (valami)
             {
                 MessageBox.Show("sikeres bejeletnkezés");
-                afterlogin a = new afterlogin() { Top = this.Top, Left = this.Left, Visibility = Visibility.Visible};
+                afterlogin a = new afterlogin(connection) { Top = this.Top, Left = this.Left, Visibility = Visibility.Visible};
                 this.Hide();
                 a.Closing += (ss, ee) =>
                 {

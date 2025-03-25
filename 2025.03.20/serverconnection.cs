@@ -95,7 +95,7 @@ namespace _2025._03._20
         public async Task<List<string>> Names()
         {
             List<string> allnames = new List<string>();
-            string url = serverurl + "/allnames";
+            string url = serverurl + "/allNames";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
@@ -114,7 +114,7 @@ namespace _2025._03._20
         public async Task<List<int>> Ages()
         {
             List<int> allages = new List<int>();
-            string url = serverurl + "/allages";
+            string url = serverurl + "/allAges";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
@@ -130,25 +130,26 @@ namespace _2025._03._20
 
             return allages;
         }
-        public async Task<bool> Createpr(string name, int age)
+        public async Task<bool> Reg2(string name, int age)
         {
-            string url = serverurl + "/createperson";
-
+            string url = serverurl + "/createPerson";
             try
             {
-                var jsonInfo = new
+                var jsoninfo = new
                 {
                     createname = name,
                     createage = age
-
                 };
-                string jsonStringified = JsonConvert.SerializeObject(jsonInfo);
-                HttpContent sendThis = new StringContent(jsonStringified, Encoding.UTF8, "Application/json");
-                HttpResponseMessage response = await client.PostAsync(url, sendThis);
+                string jsonstringified = JsonConvert.SerializeObject(jsoninfo);
+                HttpContent sendthis = new StringContent(jsonstringified, Encoding.UTF8, "Application/json");
+                HttpResponseMessage response = await client.PostAsync(url, sendthis);
                 response.EnsureSuccessStatusCode();
                 string result = await response.Content.ReadAsStringAsync();
-                jsondata2cs data = JsonConvert.DeserializeObject<jsondata2cs>(result);
+                jsondata data = JsonConvert.DeserializeObject<jsondata>(result);
+                Token.token = data.token;
                 return true;
+
+
             }
             catch (Exception e)
             {

@@ -20,6 +20,7 @@ namespace _2025._03._20
     public partial class afterlogin : Window
     {
         serverconnection connection;
+       
         public afterlogin(serverconnection connection)
         {
             InitializeComponent();
@@ -30,36 +31,51 @@ namespace _2025._03._20
         }
         async void Start()
         {
-           
+
             List<string> all = await connection.Profiles();
-            foreach (string  item in all)
+            foreach (string item in all)
             {
-                lista.Children.Add(new TextBlock() {Text = item});
+                lista.Children.Add(new TextBlock() { Text = item });
             }
         }
         async void Regnew(object s, EventArgs e)
         {
-            bool valami = await connection.Reg(nameinputt.Text, ageinputt.Text);
+            bool valami = await connection.Reg2(nameinputt.Text, Convert.ToInt32(ageinputt.Text));
             if (valami)
             {
                 MessageBox.Show("Registered in");
             }
         }
+       
         async void Start2()
         {
             List<string> allnames = await connection.Names();
             foreach (string item in allnames)
             {
+                
                 namelista.Children.Add(new TextBlock() { Text = item });
+
             }
         }
         async void Start3()
         {
+            
+
+
             List<int> allages = await connection.Ages();
             foreach (int item in allages)
             {
+                
+                
                 agelista.Children.Add(new TextBlock() { Text = item.ToString() });
+                Button delete = new Button();
+                delete.Content = "X";
+
+                delete.Width = 15;
+                delete.Height = 15;
+                agelista.Children.Add(delete);
             }
         }
+
     }
 }
