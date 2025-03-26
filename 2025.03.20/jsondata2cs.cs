@@ -11,5 +11,6 @@ namespace _2025._03._20
         public int id { get; set; }
         public string name { get; set; }
         public int age { get; set; }
+        public string token { get; set; }
     }
 }

@@ -20,41 +20,37 @@ namespace _2025._03._20
     /// </summary>
     public partial class MainWindow : Window
     {
-        serverconnection connection;
+        public serverConnection connection;
         public MainWindow()
         {
             InitializeComponent();
-            Start();
+            start();
         }
-        void Start()
+        void start()
         {
-            connection = new serverconnection("http://127.1.1.1:3000");
+            connection = new serverConnection("http://127.1.1.1:3000");
         }
-       async void Loginclick(object s ,EventArgs e)
+        async void LoginClick(object s, EventArgs e)
         {
-            bool valami = await connection.Login(usernameinput.Text, passwordinput.Password);
-
-            if (valami)
+            bool temp = await connection.Login(usernameInput.Text, passwordInput.Password);
+            if (temp)
             {
-                MessageBox.Show("sikeres bejeletnkezés");
-                afterlogin a = new afterlogin(connection) { Top = this.Top, Left = this.Left, Visibility = Visibility.Visible};
+                MessageBox.Show("Sikeres bejelentkezés");
+                afterlogin a = new afterlogin(connection) { Top = this.Top, Left = this.Left, Visibility = Visibility.Visible };
                 this.Hide();
+                a.Show();
                 a.Closing += (ss, ee) =>
                 {
                     this.Show();
                 };
-
             }
         }
-        async void Regclick(object s, EventArgs e)
+        async void RegClick(object s, EventArgs e)
         {
-            bool valami = await connection.Reg(usernameinput.Text, passwordinput.Password);
-
-            if (valami)
+            bool temp = await connection.Register(usernameInput.Text, passwordInput.Password);
+            if (temp)
             {
-                MessageBox.Show("sikeres regisztráció");
-                
-
+                MessageBox.Show("Sikeres");
             }
         }
 

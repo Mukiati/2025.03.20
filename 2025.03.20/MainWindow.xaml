@@ -17,12 +17,56 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="usernameinput" Background="LawnGreen" Grid.Column="1" Margin="10 20"/>
-        <PasswordBox Name="passwordinput" Background="LimeGreen" Grid.Column="1" Grid.Row="1" Margin="10 20"/>
-        <TextBlock Text="Felhasználónév:" TextAlignment="Center" FontSize="30" VerticalAlignment="Center"/>
-        <TextBlock Text="Jelszó:" TextAlignment="Center" FontSize="30" VerticalAlignment="Center" Grid.Row="1"/>
-        <Button Click="Loginclick" Grid.Row="2" Grid.ColumnSpan="2" Margin="180 20" Content="Bejelentkezés" FontSize="30"/>
-        <Button Click="Regclick" Grid.Row="3" Grid.ColumnSpan="2" Margin="180 20" Content="Regisztráció" FontSize="30"/>
+        <TextBlock
+            Text="felhasználónév"
+            TextAlignment="Center"
+            VerticalAlignment="Center"
+                        FontSize="30"
 
+            
+            />
+        <TextBlock
+            Text="jelszo"
+            Grid.Row="1"
+            TextAlignment="Center"
+            VerticalAlignment="Center"
+                        FontSize="30"
+
+            
+            />
+        <TextBox
+            Name="usernameInput"
+            Background="AliceBlue"
+            Grid.Column="1"
+            Margin="10 20"
+            />
+        <PasswordBox
+            Name="passwordInput"
+            Grid.Column="1"
+            Grid.Row="1"
+            Background="AliceBlue"
+            Margin="10 20"
+            
+            />
+        <Button
+            Click="LoginClick"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin=" 200 20"
+            Background="#FF00FF7A"
+            Content="Belépés"
+            FontSize="30"
+            
+            
+            />
+        <Button
+            
+            Click="RegClick"
+            Grid.Row="3"
+            Grid.ColumnSpan="2" Margin=" 200 20"
+            Background="#FF1EFFE3"
+            Content="Regisztráció"
+            FontSize="30" 
+            />
     </Grid>
 </Window>

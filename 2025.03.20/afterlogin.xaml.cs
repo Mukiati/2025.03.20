@@ -19,62 +19,130 @@ namespace _2025._03._20
     /// </summary>
     public partial class afterlogin : Window
     {
-        serverconnection connection;
+        serverConnection connection;
+        
        
-        public afterlogin(serverconnection connection)
+
+        public afterlogin(serverConnection connection)
         {
             InitializeComponent();
             this.connection = connection;
-            Start();
-            Start2();
-            Start3();
+            start();
+            
+            asd();
         }
-        async void Start()
+        async void start()
         {
-
             List<string> all = await connection.Profiles();
             foreach (string item in all)
             {
-                lista.Children.Add(new TextBlock() { Text = item });
+                alls.Children.Add(new TextBlock() { Text = item });
             }
         }
-        async void Regnew(object s, EventArgs e)
+        async void create(object s, EventArgs e)
         {
-            bool valami = await connection.Reg2(nameinputt.Text, Convert.ToInt32(ageinputt.Text));
-            if (valami)
+            bool temp = await connection.createPerson(NameInput.Text, Convert.ToInt32(AgeInput.Text));
+            if (temp)
             {
-                MessageBox.Show("Registered in");
+                loadPersons();
+                MessageBox.Show("Sikeres létrehozás");
             }
         }
        
-        async void Start2()
-        {
-            List<string> allnames = await connection.Names();
-            foreach (string item in allnames)
-            {
-                
-                namelista.Children.Add(new TextBlock() { Text = item });
 
+        async void deleteAll(object s, EventArgs e)
+        {
+            bool temp = await connection.deleteAllPerson();
+            if (temp)
+            {
+                loadPersons();
+                MessageBox.Show("Sikeres törlés");
             }
         }
-        async void Start3()
+
+        string oldname;
+
+        async void loadPersons()
         {
-            
+           
+
+            NameStackPanel.Children.Clear();
+            AgeStackPanel.Children.Clear();
+            dels.Children.Clear();
+            szr.Children.Clear();
+            List<string> allnames = await connection.AllNames();
+           
+            for (int i = 0; i < allnames.Count; i++)
+            {
+                oldname = allnames[i];
+            }
+            foreach (string item in allnames)
+            {
+               
+                TextBlock nameLabel = new TextBlock();
+                nameLabel.Text = item;
+                NameStackPanel.Children.Add(nameLabel);
+                Button delbutton = new Button();
+                delbutton.Content = "X";
+                Button modify = new Button();
+                modify.Content = "szerk";
+                modify.Click += (s, e) =>
+                {
+                    
+                    szerk.IsEnabled = true;
+                    NameInput.Text = item;
+                    
 
 
-            List<int> allages = await connection.Ages();
-            foreach (int item in allages)
+                };
+                modify.Click += (s, e) =>
+                {
+                    
+                    szerk.IsEnabled = true;
+
+                    
+
+                };
+
+                delbutton.Click += async (s, e) =>
+                {
+                    bool temp = await connection.deletePerson(nameLabel.Text);
+                    if (temp)
+                    {
+                        loadPersons();
+                        MessageBox.Show("Sikeres törlés!");
+                    }
+                };
+                dels.Children.Add(delbutton);
+                //System.ArgumentException: 'A megadott Visual elem már gyermeke egy másik Visual elemnek, vagy egy CompositionTarget
+                szr.Children.Add(modify);
+
+            }
+            List<string> allages = await connection.AllAges();
+            foreach (string item in allages)
+            {
+                AgeStackPanel.Children.Add(new TextBlock() { Text = item });
+               
+                
+               
+            }
+        }
+        void asd()
+        {
+           
+            szerk.IsEnabled = true;
+            szerk.Click += async (ss, ee) =>
             {
                 
-                
-                agelista.Children.Add(new TextBlock() { Text = item.ToString() });
-                Button delete = new Button();
-                delete.Content = "X";
 
-                delete.Width = 15;
-                delete.Height = 15;
-                agelista.Children.Add(delete);
-            }
+
+                bool temp = await connection.Upddate(NameInput.Text, oldname,Convert.ToInt32(AgeInput.Text));
+                if (temp)
+                {
+                    loadPersons();
+                    MessageBox.Show("Sikeres módosítás");
+                }
+            };
         }
 
     }
